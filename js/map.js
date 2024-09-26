@@ -20,25 +20,24 @@ const stateNameMapping = {
     'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'
 };
 
-// Load and process the CSV data
-d3.csv("data/US_Lightning_Forest_Fires.csv").then(function(csvData) {
-    // Count wildfires by state
-    const wildfireCounts = d3.rollup(csvData, v => v.length, d => stateNameMapping[d.STATE] || d.STATE);
-    console.log("Wildfire counts:", wildfireCounts);
+let geojsonLayer;
+let colorScale;
 
-    // Define color scale
-    const colorScale = d3.scaleSequential(d3.interpolateReds)
-        .domain([0, d3.max(wildfireCounts.values())]);
+// Load and process the CSV data
+d3.csv("data/processed_wildfire_data_yearly.csv").then(function(csvData) {
+    const dataByYear = d3.group(csvData, d => d.Year);
+    const years = Array.from(dataByYear.keys()).sort();
+
+    const maxFires = d3.max(csvData, d => +d.Total_Fires);
+    colorScale = d3.scaleSequential(d3.interpolateReds)
+        .domain([0, maxFires]);
 
     // Load GeoJSON data
     d3.json("https://raw.githubusercontent.com/python-visualization/folium/master/examples/data/us-states.json").then(function(statesData) {
-        L.geoJson(statesData, {
+        geojsonLayer = L.geoJson(statesData, {
             style: function(feature) {
-                const stateName = feature.properties.name;
-                const count = wildfireCounts.get(stateName) || 0;
-                console.log("Processing state:", stateName, "Count:", count); // Log each state being processed
                 return {
-                    fillColor: colorScale(count),
+                    fillColor: colorScale(0),
                     weight: 1,
                     opacity: 1,
                     color: 'white',
@@ -46,23 +45,30 @@ d3.csv("data/US_Lightning_Forest_Fires.csv").then(function(csvData) {
                 };
             },
             onEachFeature: function(feature, layer) {
-                const stateName = feature.properties.name;
-                const count = wildfireCounts.get(stateName) || 0;
-                layer.bindPopup(`${stateName}: ${count} wildfires`);
+                layer.bindPopup(feature.properties.name);
             }
         }).addTo(map);
+
+        // Initialize the map with the first year
+        updateMap(years[0]);
+
+        // Set up the time slider
+        const slider = document.getElementById('timeSlider');
+        slider.max = years.length - 1;
+        slider.oninput = function() {
+            updateMap(years[this.value]);
+        };
 
         // Add a legend
         const legend = L.control({position: 'bottomright'});
         legend.onAdd = function (map) {
             const div = L.DomUtil.create('div', 'info legend');
-            const grades = [0, 1000, 5000, 10000, 20000, 30000];
+            const grades = [0, 100, 250, 500, 1000, 2000];
             const labels = [];
-            let from, to;
 
             for (let i = 0; i < grades.length; i++) {
-                from = grades[i];
-                to = grades[i + 1];
+                const from = grades[i];
+                const to = grades[i + 1];
 
                 labels.push(
                     '<i style="background:' + colorScale(from + 1) + '"></i> ' +
@@ -74,4 +80,24 @@ d3.csv("data/US_Lightning_Forest_Fires.csv").then(function(csvData) {
         };
         legend.addTo(map);
     });
+
+    function updateMap(year) {
+        const data = dataByYear.get(year);
+        const wildfireCounts = d3.rollup(data, v => d3.sum(v, d => +d.Total_Fires), d => stateNameMapping[d.STATE] || d.STATE);
+        
+        geojsonLayer.eachLayer(function(layer) {
+            const stateName = layer.feature.properties.name;
+            const count = wildfireCounts.get(stateName) || 0;
+            layer.setStyle({
+                fillColor: colorScale(count),
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                fillOpacity: 0.7
+            });
+            layer.bindPopup(`${stateName}: ${count} wildfires`);
+        });
+
+        document.getElementById('currentDate').textContent = year;
+    }
 });
