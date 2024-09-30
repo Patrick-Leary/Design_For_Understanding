@@ -34,3 +34,16 @@
 .leaflet-container {
     border-radius: 7px;
 }
+
+/* Persuasion: Vis3 LineGraph */
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+
+.trendline {
+    stroke: red;
+    stroke-width: 2px;
+    stroke-dasharray: 5, 5;
+}
