@@ -14,18 +14,24 @@
     <div class="container">
         <div class="row">
             <div class="header">
-                <h1 style="text-align: center;">Wildfires by State</h1>
+                <h1 style="text-align: center;">Wildfires in the US (1992 - 2015)</h1>
             </div>
         </div>
+        <br>
         <div class="row">
-            <div class="col-6 offset-3">
+            <div class="col-6">
+                <h3 class="text-center map-caption">US Wildfire Frequency by State by Year</h3>
                 <div id="map-container">
                     <div id="map" style="height: 50vh;"></div>
                 </div>
-                <p class="text-center map-caption">US Wildfire Frequency by State</p>
                 <input type="range" id="timeSlider" min="0" max="0" value="0" step="1">
                 <span id="currentDate"></span>
             </div> 
+            <div class="col-6">
+                <div id="line-chart-container">
+                    <div id="line-chart" style="height: 50vh;"></div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -33,5 +39,6 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="js/map.js"></script>
+    <script src="js/line-chart.js"></script>
 </body>
 </html>
