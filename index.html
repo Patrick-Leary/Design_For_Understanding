@@ -33,6 +33,22 @@
                 </div>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <h3 class="text-center map-caption">US Wildfire Size by State by Year</h3>
+                <div id="map-container-size">
+                    <div id="map-size" style="height: 50vh;"></div>
+                </div>
+                <input type="range" id="timeSliderSize" min="0" max="0" value="0" step="1">
+                <span id="currentDateSize"></span>
+            </div> 
+            <div class="col-6">
+                <div id="line-chart-container-size">
+                    <div id="line-chart-size" style="height: 50vh;"></div>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -40,5 +56,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="js/map.js"></script>
     <script src="js/line-chart.js"></script>
+    <script src="js/map-size.js"></script>
+    <script src="js/line-chart-size.js"></script>
 </body>
 </html>
