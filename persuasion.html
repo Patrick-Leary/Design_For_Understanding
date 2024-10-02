@@ -14,19 +14,39 @@
 </head>
 
 <body>
-    <!-- PERSUASIVE -->
     <div class="container persuasion">
-        <div class="row visual-1 mt-5"></div>
-        <h3>Comparing U.S. Lightning Fires in 1993 v. 2011</h3>
-        <div class="row visual-2 mt-5"></div>
-        <h3>Time Taken to Extinguish U.S. Lightning Fires</h3>
+
+        <div class="row visual-1 mt-5">
+            <h3>Comparing U.S. Lightning Fires in 1993 v. 2011</h3>
+        </div>
+
+        <div class="row visual-2 mt-5">
+            <!-- TODO:
+             1. filter data by bound on fire size?
+             2. color legend: should be gradient, not boxes (unless)
+             3. styling
+             4. color scale (currently inferno, can be changed); yellow bit difficult to see
+             5. (to decide) zoom in functionality? 
+             6. hover function for each point, show year + exact axis values
+             7. (to decide) also on hover: FIPS name, state -->
+            <h3>Time Taken to Extinguish U.S. Lightning Fires</h3>
+            <svg width="800" height="600"></svg>
+        </div>
+
         <div class="row visual-3 mt-5">
+            <!-- TODO:
+             1. avg fire size is in what distance unit? Acres? km? 
+             2. styling (colors; accessibility; etc.)
+             3. add ticks for odd numbered years
+             4. interactivity: hover to show avg value?
+             5. interactive: (add to hover) show exact values of total fires and cumulative fire size -->
             <h3>U.S. Lightning Fire Size Over Time (1992 - 2015)</h3>
             <svg width="900" height="500"></svg>
         </div>
     </div>
 
     <!-- JS for persuasive -->
+    <script src="js/scatterPlot.js"></script>
     <script src="js/lineGraph.js"></script>
 </body>
 
