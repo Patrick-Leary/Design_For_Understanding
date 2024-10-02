@@ -1,7 +1,7 @@
 // Set up dimensions
-const marginSize = {top: 50, right: 30, bottom: 30, left: 60};
-const widthSize = 600 - marginSize.left - marginSize.right;
-const heightSize = 400 - marginSize.top - marginSize.bottom;
+const marginSize = {top: 50, right: 30, bottom: 30, left: 90};
+const widthSize = 900 - marginSize.left - marginSize.right;
+const heightSize = 450 - marginSize.top - marginSize.bottom;
 
 // Create SVG
 const svgSize = d3.select("#line-chart-size")

@@ -11,41 +11,77 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="header">
-                <h1 style="text-align: center;">Wildfires in the US (1992 - 2015)</h1>
+    <div class="container-fluid">
+        <header class="text-center my-4">
+            <h1>Wildfires in the US (1992 - 2015)</h1>
+        </header>
+
+        <nav>
+            <ul class="nav nav-tabs" id="dataTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="frequency-tab" data-bs-toggle="tab" data-bs-target="#frequency" type="button" role="tab">Wildfire Frequency</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="size-tab" data-bs-toggle="tab" data-bs-target="#size" type="button" role="tab">Wildfire Size</button>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="tab-content" id="dataTabsContent">
+            <div class="tab-pane fade show active" id="frequency" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">US Wildfire Frequency by State</h3>
+                                <div id="map-container">
+                                    <div id="map" style="height: 50vh;"></div>
+                                </div>
+                                <div class="mt-2">
+                                    <input type="range" id="timeSlider" min="0" max="0" value="0" step="1" class="form-range">
+                                    <span id="currentDate" class="d-block text-center"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Wildfire Frequency Over Time</h3>
+                                <div id="line-chart-container">
+                                    <div id="line-chart" style="height: 50vh;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-6">
-                <h3 class="text-center map-caption">US Wildfire Frequency by State by Year</h3>
-                <div id="map-container">
-                    <div id="map" style="height: 50vh;"></div>
-                </div>
-                <input type="range" id="timeSlider" min="0" max="0" value="0" step="1">
-                <span id="currentDate"></span>
-            </div> 
-            <div class="col-6">
-                <div id="line-chart-container">
-                    <div id="line-chart" style="height: 50vh;"></div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-6">
-                <h3 class="text-center map-caption">US Wildfire Size by State by Year</h3>
-                <div id="map-container-size">
-                    <div id="map-size" style="height: 50vh;"></div>
-                </div>
-                <input type="range" id="timeSliderSize" min="0" max="0" value="0" step="1">
-                <span id="currentDateSize"></span>
-            </div> 
-            <div class="col-6">
-                <div id="line-chart-container-size">
-                    <div id="line-chart-size" style="height: 50vh;"></div>
+            <div class="tab-pane fade" id="size" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">US Wildfire Size by State</h3>
+                                <div id="map-container-size">
+                                    <div id="map-size" style="height: 50vh;"></div>
+                                </div>
+                                <div class="mt-2">
+                                    <input type="range" id="timeSliderSize" min="0" max="0" value="0" step="1" class="form-range">
+                                    <span id="currentDateSize" class="d-block text-center"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Wildfire Size Over Time</h3>
+                                <div id="line-chart-container-size">
+                                    <div id="line-chart-size" style="height: 50vh;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
