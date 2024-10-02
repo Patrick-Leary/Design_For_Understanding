@@ -69,6 +69,18 @@ h3.card-title {
     margin-bottom: 20px;
 }
 
+#line-chart-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#line-chart-container-size {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 #map, #map-size {
     width: 100%;
     height: 50vh;

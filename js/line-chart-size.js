@@ -1,15 +1,49 @@
 // Set up dimensions
 const marginSize = {top: 50, right: 30, bottom: 30, left: 90};
-const widthSize = 900 - marginSize.left - marginSize.right;
-const heightSize = 450 - marginSize.top - marginSize.bottom;
+let widthSize = 900 - marginSize.left - marginSize.right;
+let heightSize = 450 - marginSize.top - marginSize.bottom;
 
 // Create SVG
 const svgSize = d3.select("#line-chart-size")
     .append("svg")
-    .attr("width", widthSize + marginSize.left + marginSize.right)
-    .attr("height", heightSize + marginSize.top + marginSize.bottom)
+    .attr("viewBox", `0 0 ${widthSize + marginSize.left + marginSize.right} ${heightSize + marginSize.top + marginSize.bottom}`)
     .append("g")
     .attr("transform", `translate(${marginSize.left},${marginSize.top})`);
+
+// Function to update chart dimensions
+function updateChartSize() {
+    const containerWidth = document.getElementById("line-chart-container-size").clientWidth;
+    widthSize = containerWidth - marginSize.left - marginSize.right;
+    heightSize = (widthSize * 0.5) - marginSize.top - marginSize.bottom; // Maintain aspect ratio
+
+    // Update SVG viewBox
+    d3.select("#line-chart-size svg")
+        .attr("viewBox", `0 0 ${widthSize + marginSize.left + marginSize.right} ${heightSize + marginSize.top + marginSize.bottom}`);
+
+    // Update scales
+    x.range([0, widthSize]);
+    y.range([heightSize, 0]);
+
+    // Update line
+    svgSize.select(".line")
+        .attr("d", line);
+
+    // Update axes
+    svgSize.select(".x-axis")
+        .attr("transform", `translate(0,${heightSize})`)
+        .call(d3.axisBottom(x).ticks(10).tickFormat(d3.format("d")));
+    svgSize.select(".y-axis")
+        .call(d3.axisLeft(y));
+
+    // Update labels
+    svgSize.select(".x-label")
+        .attr("x", widthSize / 2)
+        .attr("y", heightSize + marginSize.bottom);
+    svgSize.select(".y-label")
+        .attr("x", 0 - (heightSize / 2));
+    svgSize.select(".title")
+        .attr("x", widthSize / 2);
+}
 
 // Load and process the data
 d3.csv("data/processed_wildfire_data.csv").then(function(data) {
