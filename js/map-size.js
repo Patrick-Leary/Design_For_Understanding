@@ -99,12 +99,3 @@ function initializeMapSize() {
     });
 }
 
-
-// Create the map
-// const mapSize = L.map('map-size').setView([37.8, -96], 4);
-
-// Add the tile layer
-// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     attribution: '&copy; OpenStreetMap contributors'
-// }).addTo(mapSize);
-

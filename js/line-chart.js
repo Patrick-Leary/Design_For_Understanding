@@ -1,4 +1,3 @@
-
 // Set up dimensions
 const margin = {top: 50, right: 30, bottom: 30, left: 60};
 const width = 900 - margin.left - margin.right;
