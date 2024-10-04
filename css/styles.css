@@ -120,16 +120,16 @@ h3.card-title {
 }
 
 .legend {
-    line-height: 18px;
-    color: #555;
+  line-height: 18px;
+  color: #555;
 }
 
 .legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
 }
 
 /* Responsive adjustments */
@@ -167,3 +167,45 @@ h3.card-title {
         padding: 15px;
     }
 }
+#map-container {
+  border: 3px solid #9b034a;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+#map {
+  width: 100%;
+  height: 50vh;
+}
+
+.leaflet-container {
+  border-radius: 7px;
+}
+
+/* Persuasion: Vis3 LineGraph */
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+  
+  .trendline {
+    stroke: red;
+    stroke-width: 2px;
+    stroke-dasharray: 5, 5;
+  }
+  
+  /* Persuasion: Vis2 Scatterplot */
+  .scatter {
+    /* fill: steelblue; */
+    opacity: 0.7;
+  }
+  .scatter:hover {
+    opacity: 1;
+  }
+  .axis--x path,
+  .axis--y path {
+    display: none;
+  }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persuasion</title>
+
+    <!-- STYLING -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+    <!-- FRAMEWORKS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <div class="container persuasion">
+
+        <div class="row visual-1 mt-5">
+            <div class="header">
+                <h1 style="text-align: center;">Wildfires by State in 1993 & 2011</h1>
+            </div>
+
+            <div class="row">
+                <!-- TODO:
+                    1. yumna removed offsets temporarily, to figure out need -->
+                    
+                <!--1993-->
+                <div class="col-6">
+                    <div id="map-container">
+                        <div id="map1" style="height: 50vh;"></div>
+                    </div>
+                    <p class="text-center map-caption">US Wildfire Frequency by State (1993)</p>
+                </div>
+
+                <!-- 2011 -->
+                <div class="col-6">
+                    <div id="map-container">
+                        <div id="map2" style="height: 50vh;"></div>
+                    </div>
+                    <p class="text-center map-caption">US Wildfire Frequency by State (2011)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row visual-2 mt-5">
+            <!-- TODO:
+             1. filter data by bound on fire size?
+             2. color legend: should be gradient, not boxes (unless)
+             3. styling
+             4. color scale (currently inferno, can be changed); yellow bit difficult to see
+             5. (to decide) zoom in functionality? 
+             6. hover function for each point, show year + exact axis values
+             7. (to decide) also on hover: FIPS name, state -->
+            <h3>Time Taken to Extinguish U.S. Lightning Fires</h3>
+            <svg width="800" height="600"></svg>
+        </div>
+
+        <div class="row visual-3 mt-5">
+            <!-- TODO:
+             1. avg fire size is in what distance unit? Acres? km? 
+             2. styling (colors; accessibility; etc.)
+             3. add ticks for odd numbered years
+             4. interactivity: hover to show avg value?
+             5. interactive: (add to hover) show exact values of total fires and cumulative fire size -->
+            <h3>U.S. Lightning Fire Size Over Time (1992 - 2015)</h3>
+            <svg width="900" height="500"></svg>
+        </div>
+    </div>
+
+    <!-- JS for persuasive -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="js/map1.js"></script>
+    <script src="js/map2.js"></script>
+    <script src="js/scatterPlot.js"></script>
+    <script src="js/lineGraph.js"></script>
+</body>
+
+</html>
