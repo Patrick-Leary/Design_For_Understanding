@@ -46,6 +46,18 @@ d3.csv("data/processed_wildfire_data_yearly.csv").then(function(csvData) {
             },
             onEachFeature: function(feature, layer) {
                 layer.bindPopup(feature.properties.name);
+                layer.on({
+                    click: function(e) {
+                        let stateName = e.target.feature.properties.name;
+                        updateLineChart(stateName);
+                    }
+                    
+                });
+                map.on('click', function(e) {
+                    if (!e.originalEvent.target.classList.contains('leaflet-interactive')) {
+                        updateLineChart(); // full reset (all states)
+                    }
+                });                
             }
         }).addTo(map);
 
