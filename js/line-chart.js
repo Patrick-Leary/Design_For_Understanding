@@ -10,44 +10,43 @@ const svg = d3.select("#line-chart")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Function to update chart dimensions
-function updateChart() {
-    const containerWidth = document.getElementById("chart-container").clientWidth;
-    width = containerWidth - margin.left - margin.right;
-    height = (width * 0.5) - margin.top - margin.bottom; // Maintain aspect ratio
+// Scales
+const x = d3.scaleLinear().range([0, width]);
+const y = d3.scaleLinear().range([height, 0]);
 
-    // Update SVG viewBox
-    d3.select("#line-chart svg")
-        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`);
+// State abbreviation to full name mapping
+const stateNameMapping = {
+    'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'California': 'CA',
+    'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE', 'Florida': 'FL', 'Georgia': 'GA',
+    'Hawaii': 'HI', 'Idaho': 'ID', 'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA',
+    'Kansas': 'KS', 'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
+    'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS', 'Missouri': 'MO',
+    'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV', 'New Hampshire': 'NH', 'New Jersey': 'NJ',
+    'New Mexico': 'NM', 'New York': 'NY', 'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH',
+    'Oklahoma': 'OK', 'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
+    'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT', 'Vermont': 'VT',
+    'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY'
+};
 
-    // Update scales
-    x.range([0, width]);
-    y.range([height, 0]);
+let allData;
 
-    // Update line
-    svg.select(".line")
-        .attr("d", line);
-
-    // Update axes
-    svg.select(".x-axis")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x).ticks(10).tickFormat(d3.format("d")));
-    svg.select(".y-axis")
-        .call(d3.axisLeft(y));
-
-    // Update labels
-    svg.select(".x-label")
-        .attr("x", width / 2)
-        .attr("y", height + margin.bottom);
-    svg.select(".y-label")
-        .attr("x", 0 - (height / 2));
-    svg.select(".title")
-        .attr("x", width / 2);
-}
-
-// Load and process the data
 d3.csv("data/processed_wildfire_data.csv").then(function(data) {
-    // Group by year and sum total fires
+    allData = data;
+    updateLineChart();
+});
+
+function updateLineChart(stateName) {
+  
+    svg.selectAll("*").remove(); // clear prev info 
+    
+    let data;
+    if (stateName) {
+        const stateAbbrev = stateNameMapping[stateName];
+        data = allData.filter(d => d.STATE === stateAbbrev);
+    } else {
+        data = allData;
+    }
+    
     const yearlyData = d3.rollup(data, 
         v => d3.sum(v, d => +d.Total_Fires), 
         d => d.Year
@@ -59,14 +58,9 @@ d3.csv("data/processed_wildfire_data.csv").then(function(data) {
     // Sort by year
     firesByYear.sort((a, b) => a.Year - b.Year);
 
-    // Set up scales
-    const x = d3.scaleLinear()
-        .domain(d3.extent(firesByYear, d => d.Year))
-        .range([0, width]);
-
-    const y = d3.scaleLinear()
-        .domain([0, d3.max(firesByYear, d => d.Total_Fires)])
-        .range([height, 0]);
+    // Update scales
+    x.domain(d3.extent(firesByYear, d => d.Year));
+    y.domain([0, d3.max(firesByYear, d => d.Total_Fires)]);
 
     // Create line
     const line = d3.line()
@@ -111,5 +105,7 @@ d3.csv("data/processed_wildfire_data.csv").then(function(data) {
         .attr("y", 0 - margin.top / 2)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
-        .text("Total Fires by Year");
-});
+        .text(stateName ? `Total Fires in ${stateName} by Year` : "Total Fires by Year");
+}
+
+window.updateLineChart = updateLineChart;
