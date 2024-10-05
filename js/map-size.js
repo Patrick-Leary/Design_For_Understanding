@@ -79,7 +79,7 @@ function initializeMapSize() {
 
         function updateMapSize(year) {
             const data = dataByYear.get(year);
-            const wildfireSizes = d3.rollup(data, v => d3.sum(v, d => +d.Total_Fire_Size), d => stateNameMapping[d.STATE] || d.STATE);
+            const wildfireSizes = d3.rollup(data, v => d3.sum(v, d => +d.Total_Fire_Size), d => stateAbbrevMapping[d.STATE] || d.STATE);
             
             geojsonLayerSize.eachLayer(function(layer) {
                 const stateName = layer.feature.properties.name;

@@ -15,7 +15,7 @@ const x = d3.scaleLinear().range([0, width]);
 const y = d3.scaleLinear().range([height, 0]);
 
 // State abbreviation to full name mapping
-const stateNameMapping = {
+const stateAbbrevMapping = {
     'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR', 'California': 'CA',
     'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE', 'Florida': 'FL', 'Georgia': 'GA',
     'Hawaii': 'HI', 'Idaho': 'ID', 'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA',
@@ -41,7 +41,7 @@ function updateLineChart(stateName) {
     
     let data;
     if (stateName) {
-        const stateAbbrev = stateNameMapping[stateName];
+        const stateAbbrev = stateAbbrevMapping[stateName];
         data = allData.filter(d => d.STATE === stateAbbrev);
     } else {
         data = allData;

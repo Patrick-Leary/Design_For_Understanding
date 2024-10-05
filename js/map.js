@@ -95,7 +95,7 @@ d3.csv("data/processed_wildfire_data_yearly.csv").then(function(csvData) {
 
     function updateMap(year) {
         const data = dataByYear.get(year);
-        const wildfireCounts = d3.rollup(data, v => d3.sum(v, d => +d.Total_Fires), d => stateNameMapping[d.STATE] || d.STATE);
+        const wildfireCounts = d3.rollup(data, v => d3.sum(v, d => +d.Total_Fires), d => stateAbbrevMapping[d.STATE] || d.STATE);
         
         geojsonLayer.eachLayer(function(layer) {
             const stateName = layer.feature.properties.name;
