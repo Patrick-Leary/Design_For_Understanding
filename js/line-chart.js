@@ -1,5 +1,5 @@
 // Set up dimensions
-const margin = {top: 50, right: 30, bottom: 30, left: 60};
+const margin = {top: 50, right: 30, bottom: 40, left: 65};
 let width = 900 - margin.left - margin.right;
 let height = 450 - margin.top - margin.bottom;
 
@@ -30,13 +30,12 @@ const stateAbbrevMapping = {
 
 let allData;
 
-d3.csv("data/processed_wildfire_data.csv").then(function(data) {
+d3.csv("data/processed_wildfire_data_yearly.csv").then(function(data) {
     allData = data;
     updateLineChart();
 });
 
 function updateLineChart(stateName) {
-  
     svg.selectAll("*").remove(); // clear prev info 
     
     let data;
@@ -47,20 +46,18 @@ function updateLineChart(stateName) {
         data = allData;
     }
     
-    const yearlyData = d3.rollup(data, 
+    const firesByYear = d3.rollup(data, 
         v => d3.sum(v, d => +d.Total_Fires), 
-        d => d.Year
+        d => +d.Year
     );
 
-    // Convert to array of objects
-    const firesByYear = Array.from(yearlyData, ([year, fires]) => ({Year: +year, Total_Fires: fires}));
-
-    // Sort by year
-    firesByYear.sort((a, b) => a.Year - b.Year);
+    // Convert to array of objects and sort by year
+    const fireData = Array.from(firesByYear, ([year, fires]) => ({Year: year, Total_Fires: fires}))
+        .sort((a, b) => a.Year - b.Year);
 
     // Update scales
-    x.domain(d3.extent(firesByYear, d => d.Year));
-    y.domain([0, d3.max(firesByYear, d => d.Total_Fires)]);
+    x.domain(d3.extent(fireData, d => d.Year));
+    y.domain([0, d3.max(fireData, d => d.Total_Fires)]);
 
     // Create line
     const line = d3.line()
@@ -69,7 +66,7 @@ function updateLineChart(stateName) {
 
     // Add line to chart
     svg.append("path")
-        .datum(firesByYear)
+        .datum(fireData)
         .attr("fill", "none")
         .attr("stroke", "darkred")
         .attr("stroke-width", 2)

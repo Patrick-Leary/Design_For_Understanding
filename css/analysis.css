@@ -70,10 +70,16 @@ h3.card-title {
 
 /* Map and chart containers */
 #map-container,
+#line-chart-container {
+    border: 3px solid darkred;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
 #map-container-size,
-#line-chart-container,
 #line-chart-container-size {
-    border: 2px solid #3498db;
+    border: 3px solid #E8864E;
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 20px;
@@ -167,45 +173,28 @@ h3.card-title {
         padding: 15px;
     }
 }
-#map-container {
-  border: 3px solid #9b034a;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-
-#map {
-  width: 100%;
-  height: 50vh;
-}
-
-.leaflet-container {
-  border-radius: 7px;
-}
 
 /* Persuasion: Vis3 LineGraph */
 .line {
     fill: none;
     stroke: steelblue;
     stroke-width: 2px;
-  }
-  
-  .trendline {
+}
+
+.trendline {
     stroke: red;
     stroke-width: 2px;
     stroke-dasharray: 5, 5;
-  }
-  
-  /* Persuasion: Vis2 Scatterplot */
-  .scatter {
-    /* fill: steelblue; */
+}
+
+/* Persuasion: Vis2 Scatterplot */
+.scatter {
     opacity: 0.7;
-  }
-  .scatter:hover {
+}
+.scatter:hover {
     opacity: 1;
-  }
-  .axis--x path,
-  .axis--y path {
+}
+.axis--x path,
+.axis--y path {
     display: none;
-  }
+}

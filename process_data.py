@@ -1,5 +1,6 @@
 import pandas as pd
 
+# Read the data
 data = pd.read_csv('data/US_Lightning_Forest_Fires.csv')
 
 # Convert 'Fire_Date' to datetime
@@ -14,8 +15,25 @@ processed_data = data.groupby(['Year', 'STATE']).agg(
     Total_Fire_Size=('FIRE_SIZE', 'sum')
 ).reset_index()
 
+# Get the unique years and states
+years = data['Year'].unique()
+states = data['STATE'].unique()
+
+# Create a complete set of year-state combinations
+all_combinations = pd.MultiIndex.from_product([years, states], names=['Year', 'STATE']).to_frame(index=False)
+
+# Merge the complete set with the processed data
+complete_data = all_combinations.merge(processed_data, on=['Year', 'STATE'], how='left')
+
+# Fill NaN values with 0
+complete_data['Total_Fires'] = complete_data['Total_Fires'].fillna(0)
+complete_data['Total_Fire_Size'] = complete_data['Total_Fire_Size'].fillna(0)
+
+# Sort the data by Year and STATE
+complete_data = complete_data.sort_values(['Year', 'STATE'])
+
 # Save the processed data to a new CSV file
-processed_data.to_csv('data/processed_wildfire_data_yearly.csv', index=False)
+complete_data.to_csv('data/processed_wildfire_data_yearly.csv', index=False)
 
 print("Processed data has been saved to 'data/processed_wildfire_data_yearly.csv'")
 
