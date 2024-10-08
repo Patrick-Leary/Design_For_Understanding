@@ -57,3 +57,17 @@ yearly_firesize['Average_Fire_Size'] = yearly_firesize['Total_Fire_Size'] / \
 
 # Save AVG FIRE SIZE YEARLY data to csv
 yearly_firesize.to_csv('data/avg_firesize_yearly.csv', index=False)
+
+
+# Calculating average extinuishing time per year
+yearly_exting = data.groupby(['Year']).agg(
+    Total_Fires=('FIRE_SIZE', 'size'),  # Count of fires
+    Total_Extinguish=(
+        'Days_to_extinguish_fire', 'sum') #sum of time taken to extinguish all fires yearly
+).reset_index()
+
+yearly_exting['Average_Extinguish_Time'] = yearly_exting['Total_Extinguish'] / \
+    yearly_exting['Total_Fires']
+
+# Save AVG FIRE SIZE YEARLY data to csv
+yearly_exting.to_csv('data/avg_extinguishing_yearly.csv', index=False)

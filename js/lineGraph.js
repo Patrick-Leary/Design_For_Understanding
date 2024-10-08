@@ -1,8 +1,8 @@
 // data file to access
-const filename ="data/avg_firesize_yearly.csv";
+const filename = "data/avg_firesize_yearly.csv";
 
 // Set the dimensions of the canvas
-const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+const margin = { top: 50, right: 50, bottom: 50, left: 55 };
 const width = 800 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -59,14 +59,58 @@ d3.csv(filename).then((data) => {
     .attr("text-anchor", "middle")
     .text("Year");
 
-    svg
+  svg
     .append("text")
     .attr("text-anchor", "middle")
     .attr(
       "transform",
       "translate(" + -margin.left * 0.8 + "," + height / 2 + ")rotate(-90)"
     )
-    .text("Average Fire Size");
+    .text("Average Fire Size (Acres)");
+
+  // Create a tooltip
+  const tooltip = d3
+    .select(".visual-3")
+    .append("div")
+    // .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("background-color", "white")
+    .style("border", "1px solid #5D7392")
+    .style("padding", "5px")
+    .style("border-radius", "5px");
+
+  // Append circles for each data point for hover functionality
+  svg.selectAll(".dot")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class", "dot")
+    .attr("cx", (d) => x(d.Year))
+    .attr("cy", (d) => y(d.Average_Fire_Size))
+    .attr("r", 3)
+    .attr("fill", "#2256AA")
+    .on("mouseover", function (event, d) {
+      // Show tooltip
+      tooltip.html(
+        `<b>Year:</b> ${d.Year}<br> 
+        <b>Avg. Fire Size:</b> ${Number(d.Average_Fire_Size).toFixed(2)} acres <br>
+        <b>Total Fires: </b> ${d.Total_Fires}<br>
+        <b>Total Fire Size: </b> ${Number(d.Total_Fire_Size).toFixed(2)} acres`
+      )
+      .style("visibility", "visible");
+      d3.select(this).attr("fill", "#5D7392");
+    })
+    .on("mousemove", function (event) {
+      // Update tooltip position
+      tooltip.style("top", (event.pageY - 10) + "px")
+             .style("left", (event.pageX + 10) + "px");
+    })
+    .on("mouseout", function () {
+      // Hide tooltip
+      tooltip.style("visibility", "hidden");
+      d3.select(this).attr("fill", "#2256AA");
+    });
 
   // Function to calculate the line of best fit
   function linearRegression(data) {

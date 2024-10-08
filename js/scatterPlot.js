@@ -1,5 +1,5 @@
 // data file to access
-const filenameSP = "data/filtered_firesize_data.csv";
+const filenameSP = "data/US_Lightning_Forest_Fires.csv";
 
 // Set the dimensions and margins of the graph
 const marginSP = { top: 20, right: 150, bottom: 40, left: 50 },  // Increased right margin for the legend
