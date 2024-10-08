@@ -205,28 +205,3 @@ h3.card-title {
         padding: 15px;
     }
 }
-
-/* Persuasion: Vis3 LineGraph */
-.line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 2px;
-}
-
-.trendline {
-    stroke: red;
-    stroke-width: 2px;
-    stroke-dasharray: 5, 5;
-}
-
-/* Persuasion: Vis2 Scatterplot */
-.scatter {
-    opacity: 0.7;
-}
-.scatter:hover {
-    opacity: 1;
-}
-.axis--x path,
-.axis--y path {
-    display: none;
-}

@@ -2,7 +2,7 @@
 const filename ="data/avg_firesize_yearly.csv";
 
 // Set the dimensions of the canvas
-const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+const margin = { top: 50, right: 50, bottom: 50, left: 55 };
 const width = 800 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -66,7 +66,7 @@ d3.csv(filename).then((data) => {
       "transform",
       "translate(" + -margin.left * 0.8 + "," + height / 2 + ")rotate(-90)"
     )
-    .text("Average Fire Size");
+    .text("Average Fire Size (Acres)");
 
   // Function to calculate the line of best fit
   function linearRegression(data) {
