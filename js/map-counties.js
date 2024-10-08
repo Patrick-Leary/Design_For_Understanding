@@ -174,7 +174,7 @@ function initializeMapCounties() {
         slider.value = 0;
 
         // Set up color scale without domain
-        colorScaleCounties = d3.scaleSequential(d3.interpolateOrRd);
+        colorScaleCounties = d3.scaleSequential(d3.interpolateOrRd).domain([0, 100]);
 
         // Load GeoJSON data and add to map
         geojsonLayerCounties = L.geoJson(countiesData, {
@@ -209,17 +209,17 @@ function initializeMapCounties() {
             const div = L.DomUtil.create('div', 'info legend');
             const grades = [0, 1, 5, 10, 20, 50, 100];
             const labels = [];
-
+        
             // Generate a label with a colored square for each interval
             for (let i = 0; i < grades.length; i++) {
                 const from = grades[i];
                 const to = grades[i + 1];
-
+        
                 labels.push(
-                    '<i style="background:' + colorScaleCounties(from + 1) + '"></i> ' +
+                    '<i style="background:' + colorScaleCounties(from) + '"></i> ' +
                     from + (to ? '&ndash;' + to : '+'));
             }
-
+        
             div.innerHTML = labels.join('<br>');
             return div;
         };
@@ -258,7 +258,20 @@ function initializeMapCounties() {
 
         // Update color scale domain based on the max fires in the selected year
         const maxFiresYear = d3.max(Array.from(wildfireByCounty.values())) || 0;
-        colorScaleCounties.domain([0, maxFiresYear]);
+        colorScaleCounties.domain([0, Math.max(maxFiresYear, 100)]);
+
+        // Update the legend
+        const legend = document.querySelector('.legend');
+        if (legend) {
+            const grades = [0, 1, 5, 10, 20, 50, Math.min(100, maxFiresYear)];
+            const labels = grades.map((grade, i) => {
+                const from = grade;
+                const to = grades[i + 1];
+                return '<i style="background:' + colorScaleCounties(from) + '"></i> ' +
+                    from + (to ? '&ndash;' + to : '+');
+            });
+            legend.innerHTML = labels.join('<br>');
+        }
 
         // Update the map styles
         geojsonLayerCounties.eachLayer(function(layer) {
