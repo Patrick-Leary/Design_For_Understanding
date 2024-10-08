@@ -72,7 +72,7 @@ d3.csv(filenameBC)
       .style("position", "absolute")
       .style("visibility", "hidden")
       .style("background-color", "white")
-      .style("border", "1px solid #ccc")
+      .style("border", "1px solid #5D7392")
       .style("padding", "5px")
       .style("border-radius", "5px");
 
@@ -95,7 +95,7 @@ d3.csv(filenameBC)
             `<b>Year:</b> ${d.Year}<br> 
              <b>Avg. Extinguish Time:</b> ${Number(d.Average_Extinguish_Time).toFixed(2)} days <br>
              <b>Total Fires: </b> ${d.Total_Fires}<br>
-             <b>Total Extinguish Time: </b> ${d.Total_Extinguish}`
+             <b>Total Extinguish Time: </b> ${d.Total_Extinguish} days`
           )
           .style("visibility", "visible");
         
