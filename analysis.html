@@ -58,17 +58,18 @@
                     </div>
                 </div>
             </div>
-            <!-- tab for counties -->
+            <!-- New Counties Tab Content -->
             <div class="tab-pane fade" id="counties" role="tabpanel">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <!-- Map Column -->
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title">US Wildfires by County</h3>
                                 <div id="map-container-counties">
                                     <div id="map-counties"></div>
                                 </div>
-                                <!-- time slider -->
+                                <!-- Time Slider -->
                                 <div class="mt-3">
                                     <input type="range" id="timeSliderCounties" min="0" max="0" value="0" step="1" class="form-range">
                                     <span id="currentDateCounties" class="d-block text-center mt-2"></span>
@@ -76,8 +77,19 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Line Chart Column -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Wildfire Data Over Time for Selected County</h3>
+                                <div id="line-chart-container-counties">
+                                    <div id="line-chart-counties"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div> <!-- End of Counties Tab Content -->
             <div class="tab-pane fade" id="size" role="tabpanel">
                 <div class="row">
                     <div class="col-lg-6">
@@ -117,5 +129,7 @@
     <script src="js/map-size.js"></script>
     <script src="js/line-chart-size.js"></script>
     <script src="js/map-counties.js"></script>
+    <script src="js/line-chart-counties.js"></script> 
+
 </body>
 </html>

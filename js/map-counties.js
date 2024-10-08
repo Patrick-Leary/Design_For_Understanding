@@ -191,7 +191,14 @@ function initializeMapCounties() {
                 const countyName = feature.properties.NAME;
                 const stateFIPS = feature.properties.STATEFP;
                 const stateName = stateFIPSMapping[stateFIPS];
+                const countyGEOID = feature.properties.GEOID;
+
                 layer.bindPopup(`${countyName}, ${stateName}`);
+
+                layer.on('click', function() {
+                    // Call the update function for the line chart
+                    updateLineChartCounties(countyGEOID, `${countyName}, ${stateName}`);
+                });
             }
         }).addTo(mapCounties);
 
@@ -228,6 +235,14 @@ function initializeMapCounties() {
             const selectedYear = years[selectedYearIndex];
             updateMapCounties(selectedYear);
         };
+
+        // Add the map click event listener here, after the map is initialized
+        mapCounties.on('click', function(e) {
+            if (!e.originalEvent.target.classList.contains('leaflet-interactive')) {
+                updateLineChartCounties(); // Reset to placeholder message
+            }
+        });
+
     }).catch(error => console.error('Error loading data:', error));
 
     function updateMapCounties(year) {
