@@ -98,6 +98,26 @@ h3.card-title {
     border-radius: 8px;
 }
 
+#map-container-counties {
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#map-counties {
+    width: 100%;
+    height: 70vh;
+    min-height: 400px;
+}
+
+@media (max-width: 991px) {
+    #map-counties {
+        min-height: 300px;
+    }
+}
+
+
 /* Slider styling */
 .form-range {
     width: 100%;
@@ -115,6 +135,18 @@ h3.card-title {
 .form-range::-ms-thumb {
     background: #3498db;
 }
+
+/* Style for the time slider in the counties tab */
+#timeSliderCounties {
+    width: 100%;
+    margin-top: 15px;
+}
+
+#currentDateCounties {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
 
 /* Legend styling */
 .info {

@@ -22,8 +22,12 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="size-tab" data-bs-toggle="tab" data-bs-target="#size" type="button" role="tab">Wildfire Size</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="counties-tab" data-bs-toggle="tab" data-bs-target="#counties" type="button" role="tab">Wildfire by County</button>
+                </li>
             </ul>
         </nav>
+        
 
         <div class="tab-content" id="dataTabsContent">
             <div class="tab-pane fade show active" id="frequency" role="tabpanel">
@@ -48,6 +52,26 @@
                                 <h3 class="card-title">Wildfire Frequency Over Time</h3>
                                 <div id="line-chart-container">
                                     <div id="line-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- tab for counties -->
+            <div class="tab-pane fade" id="counties" role="tabpanel">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">US Wildfires by County</h3>
+                                <div id="map-container-counties">
+                                    <div id="map-counties"></div>
+                                </div>
+                                <!-- time slider -->
+                                <div class="mt-3">
+                                    <input type="range" id="timeSliderCounties" min="0" max="0" value="0" step="1" class="form-range">
+                                    <span id="currentDateCounties" class="d-block text-center mt-2"></span>
                                 </div>
                             </div>
                         </div>
@@ -92,5 +116,6 @@
     <script src="js/line-chart.js"></script>
     <script src="js/map-size.js"></script>
     <script src="js/line-chart-size.js"></script>
+    <script src="js/map-counties.js"></script>
 </body>
 </html>
