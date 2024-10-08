@@ -9,8 +9,8 @@ const height = 500 - margin.top - margin.bottom;
 // Append the SVG canvas to the body
 const svg = d3
   .select(".visual-3 svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
+  .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+  .attr("preserveAspectRatio", "xMinYMin meet") // to control aspect ratio
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

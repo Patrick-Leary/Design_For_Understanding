@@ -7,13 +7,13 @@ const heightBC = 600 - marginBC.top - marginBC.bottom;
 
 const HEIGHT_ADJUST = 10;
 
-// Create the SVG container for the bar chart
+// Append the SVG canvas to the body
 const svgBC = d3
   .select(".visual-2 svg")
-  .attr("width", widthBC + marginBC.left + marginBC.right)
-  .attr("height", heightBC + marginBC.top + marginBC.bottom)
+  .attr("viewBox", `0 0 ${widthBC + marginBC.left + marginBC.right} ${heightBC + marginBC.top + marginBC.bottom}`)
+  .attr("preserveAspectRatio", "xMinYMin meet") // to control aspect ratio
   .append("g")
-  .attr("transform", `translate(${marginBC.left},${marginBC.top})`);
+  .attr("transform", "translate(" + marginBC.left + "," + marginBC.top + ")");
 
 // Load CSV data
 d3.csv(filenameBC)
