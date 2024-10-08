@@ -50,11 +50,16 @@ function updateLineChartCounties(countyGEOID, countyName) {
     // Group data by year and count fires
     const firesByYear = d3.rollup(countyData, v => v.length, d => d.Year);
 
-    // Convert to array of objects
-    const dataArray = Array.from(firesByYear, ([Year, Total_Fires]) => ({Year, Total_Fires}));
+    // Get the full range of years from the data
+    const allYears = d3.range(d3.min(countyDataAll, d => d.Year), d3.max(countyDataAll, d => d.Year) + 1);
 
-    // Sort by year
-    dataArray.sort((a, b) => a.Year - b.Year);
+    // Create an array of objects with zeros for missing years
+    const dataArray = allYears.map(year => {
+        return {
+            Year: year,
+            Total_Fires: firesByYear.get(year) || 0
+        };
+    });
 
     // Set domains
     xScaleCounties.domain(d3.extent(dataArray, d => d.Year));
