@@ -165,6 +165,8 @@ function initializeMapCounties() {
                     from + (to ? '&ndash;' + to : '+'));
             }
 
+            labels.unshift('<i style="background:#A9A9A9"></i> Data not available');
+
             div.innerHTML = labels.join('<br>');
             return div;
         };
@@ -214,18 +216,34 @@ function initializeMapCounties() {
         // Update the map styles
         geojsonLayerCounties.eachLayer(function(layer) {
             const countyGEOID = layer.feature.properties.GEOID;
-            const fireCount = wildfireByCounty.get(countyGEOID) || 0; // Assign zero if no data
+            const fireCount = wildfireByCounty.get(countyGEOID);
+
+            let fillColor;
+            if (fireCount === undefined) {
+                // Data is missing for this county
+                fillColor = '#A9A9A9'; // Gray color for missing data
+            } else {
+                // Data is present
+                fillColor = colorScaleCounties(fireCount);
+            }
+
             layer.setStyle({
-                fillColor: colorScaleCounties(fireCount),
+                fillColor: fillColor,
                 weight: 0.5,
                 color: '#666666',
                 fillOpacity: 0.7
             });
+
             // Update the popup content
             const countyName = layer.feature.properties.NAME;
             const stateFIPS = layer.feature.properties.STATEFP;
             const stateName = stateFIPSMapping[stateFIPS];
-            layer.bindPopup(`${countyName}, ${stateName}: ${fireCount} wildfires`);
+
+            if (fireCount === undefined) {
+                layer.bindPopup(`${countyName}, ${stateName}: Data not available`);
+            } else {
+                layer.bindPopup(`${countyName}, ${stateName}: ${fireCount} wildfires`);
+            }
         });
 
         // Update the current year display

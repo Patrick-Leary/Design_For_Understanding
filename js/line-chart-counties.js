@@ -1,3 +1,5 @@
+// line-chart-counties.js
+
 // Set up dimensions
 const marginCounties = {top: 50, right: 30, bottom: 30, left: 60};
 let widthCounties = 900 - marginCounties.left - marginCounties.right;
@@ -55,9 +57,10 @@ function updateLineChartCounties(countyGEOID, countyName) {
 
     // Create an array of objects with zeros for missing years
     const dataArray = allYears.map(year => {
+        const fireCount = firesByYear.get(year);
         return {
             Year: year,
-            Total_Fires: firesByYear.get(year) || 0
+            Total_Fires: fireCount !== undefined ? fireCount : 0
         };
     });
 
@@ -131,6 +134,9 @@ function constructGEOID(d) {
 
     // Ensure FIPS_CODE is a string and pad to 3 digits
     let countyFIPS = d.FIPS_CODE;
+    if (!countyFIPS || countyFIPS.trim() === '') {
+        return null; // Return null if FIPS_CODE is missing
+    }
     if (typeof countyFIPS === 'number') {
         countyFIPS = countyFIPS.toString();
     }
