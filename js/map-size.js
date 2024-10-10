@@ -28,7 +28,7 @@ function initializeMapSize() {
         'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV', 'Wisconsin': 'WI', 'Wyoming': 'WY'
     };
 
-    mapSize = L.map('map-size').setView([37.8, -96], 4);
+    mapSize = L.map('map-size').setView([37.8, -110], 3);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(mapSize);

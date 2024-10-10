@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeMapCounties() {
     // Create the map
-    mapCounties = L.map('map-counties').setView([37.8, -96], 4);
+    mapCounties = L.map('map-counties').setView([37.8, -110], 3);
 
     // Add the tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -153,7 +153,7 @@ function initializeMapCounties() {
         legend.onAdd = function(map) {
             const div = L.DomUtil.create('div', 'info legend');
             const labels = [];
-            const grades = [0, 1, 5, 10, 20, 50, 100];
+            const grades = [1, 10, 25, 50, 100, 250];
 
             // Generate a label with a colored square for each interval
             for (let i = 0; i < grades.length; i++) {
@@ -165,7 +165,7 @@ function initializeMapCounties() {
                     from + (to ? '&ndash;' + to : '+'));
             }
 
-            labels.unshift('<i style="background:#A9A9A9"></i> Data not available');
+            labels.unshift('<i style="background:#A9A9A9"></i> Data not available or No Wildfires');
 
             div.innerHTML = labels.join('<br>');
             return div;
