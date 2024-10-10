@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <!-- Existing head content -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Persuasion</title>
@@ -18,12 +19,15 @@
 </head>
 
 <body>
+    <!-- Existing navigation content -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="index.html">Home</a>
+            <!-- Rest of the navbar content -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <!-- Navbar links -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -36,22 +40,42 @@
             </div>
         </div>
     </nav>
+    <!-- Main content -->
     <div class="container persuasion">
+        <!-- Corrected introductory description -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-12 col-md-10 col-lg-8">
+                <p class="lead text-center">
+                    Climate change has had drastic impacts on the United States and the world in the past 30 years. We designed these visualizations to help users clearly see the worsening impact of climate change as observed through wildfires over the years.
+                </p>
+            </div>
+        </div>
+
+        <!-- First Visualization -->
         <div class="row justify-content-center mt-3">
             <div class="col-12 col-md-10 col-lg-8 visual-3">
                 <h3>U.S. Lightning Fire Size Over Time (1992 - 2015)</h3>
                 <svg viewBox="0 0 900 500" width="100%"></svg>
+                <!-- Corrected description under the first visualization -->
+                <p class="text-center mt-3">
+                    Here, users can see the overall trend over time of the average size of fires in acres. Users can observe from the line of best fit that the trend is increasing over time, indicating that fires are clearly getting bigger as the years progress.
+                </p>
             </div>
         </div>
 
+        <!-- Second Visualization -->
         <div class="row justify-content-center mt-5">
             <div class="col-12 col-md-10 col-lg-8 visual-2">
-                <h3>Average Time to Extinguish Lightning Fires each Year</h3>
-                <!-- <p>How difficult fires are to control with each passing year?</p> -->
+                <h3>Average Time to Extinguish Lightning Fires Each Year</h3>
                 <svg viewBox="0 0 800 800" width="100%"></svg>
+                <!-- Corrected description under the second visualization -->
+                <p class="text-center mt-3">
+                    This bar chart shows the typical increase in time taken to extinguish fires over the years. The upward trend indicates a decrease in the controllability of wildfires due to changing climate conditions (hotter temperatures, drier environments, etc.).
+                </p>
             </div>
         </div>
 
+        <!-- Third Visualization -->
         <div class="row justify-content-center mt-5 mb-3 visual-1">
             <div class="col-12 col-md-10 col-lg-8">
                 <h3>Wildfires by State in 1993 & 2011</h3>
@@ -74,18 +98,25 @@
                     </div>
                 </div>
 
+                <!-- Corrected description under the third visualization -->
+                <p class="text-center mt-3">
+                    Users can observe the data by state from these two different years. Clicking on states allows users to see specific values for those states, and the map can be moved around and viewed from different angles and locations. The wildfire frequency between these two years can clearly be seen as significantly different.
+                </p>
+
             </div>
         </div>
 
-        <!-- JS for persuasive -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-        <script src="js/map1.js"></script>
-        <script src="js/map2.js"></script>
-        <!-- <script src="js/scatterPlot.js"></script> -->
-        <script src="js/barChart.js"></script>
-        <script src="js/lineGraph.js"></script>
+    </div>
+
+    <!-- JS for persuasive -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="js/map1.js"></script>
+    <script src="js/map2.js"></script>
+    <!-- <script src="js/scatterPlot.js"></script> -->
+    <script src="js/barChart.js"></script>
+    <script src="js/lineGraph.js"></script>
 </body>
 
 </html>
